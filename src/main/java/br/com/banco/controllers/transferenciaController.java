@@ -5,9 +5,6 @@ import br.com.banco.services.TransferenciaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -31,14 +28,21 @@ public class transferenciaController {
     }
 
     @GetMapping("/periodo")
-    public ResponseEntity<List<Transferencia>> getByPeriod(@RequestParam("dataInicio") String dataInicio,
-                                                           @RequestParam("dataFim") String dataFim) {
+    public ResponseEntity<List<Transferencia>> getByPeriod(@RequestParam(name = "dataInicio") String dataInicio,
+                                                           @RequestParam(name = "dataFim") String dataFim) {
         return transferenciaService.getByPeriod(dataInicio, dataFim);
     }
 
     @GetMapping("/operador")
     public ResponseEntity<List<Transferencia>> getByOperador(@RequestParam(name = "nome") String nome){
         return transferenciaService.getByOperador(nome);
+    }
+
+    @GetMapping("/operadorAndPeriodo")
+    public ResponseEntity<List<Transferencia>> getByOperadorAndPeriodo (@RequestParam(name = "nome") String nome,
+                                                                        @RequestParam(name = "dataInicio") String dataInicio,
+                                                                        @RequestParam(name = "dataFim") String dataFim){
+        return transferenciaService.getByPeriodoAndOperador(dataInicio, dataFim, nome);
     }
 
 }

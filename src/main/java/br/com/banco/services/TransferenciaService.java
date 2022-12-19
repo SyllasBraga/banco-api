@@ -40,9 +40,8 @@ public class TransferenciaService {
         Timestamp timestampFim = validaData.formataData(dataFim);
 
         for (Transferencia transferencia : listTransferencias ){
-            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia())==true){
+            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia()))
                 transferenciasValidas.add(transferencia);
-            }
         }
         return ResponseEntity.ok().body(transferenciasValidas);
     }
@@ -51,4 +50,18 @@ public class TransferenciaService {
         return ResponseEntity.ok().body(transferenciaRepository.findByNomeOperadorTransacao(nome));
     }
 
+    public ResponseEntity<List<Transferencia>> getByPeriodoAndOperador(String dataInicio, String dataFim, String nome){
+        List<Transferencia> listTransferencias= transferenciaRepository.findByNomeOperadorTransacao(nome);
+        List<Transferencia> transferenciasValidas = new ArrayList<>();
+
+        ValidaData validaData = new ValidaData();
+        Timestamp timestampInicio = validaData.formataData(dataInicio);
+        Timestamp timestampFim = validaData.formataData(dataFim);
+
+        for (Transferencia transferencia : listTransferencias ){
+            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia()))
+                transferenciasValidas.add(transferencia);
+        }
+        return ResponseEntity.ok().body(transferenciasValidas);
+    }
 }

@@ -1,6 +1,7 @@
 package br.com.banco.entities;
 
 import br.com.banco.enums.TipoTransferenciaEnums;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;

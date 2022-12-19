@@ -3,9 +3,12 @@ package br.com.banco.services;
 import br.com.banco.entities.Conta;
 import br.com.banco.entities.Transferencia;
 import br.com.banco.repository.TransferenciaRepository;
+import br.com.banco.services.utils.ValidaData;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -26,6 +29,24 @@ public class TransferenciaService {
 
     public ResponseEntity<List<Transferencia>> getAll(){
         return ResponseEntity.ok().body(transferenciaRepository.findAll());
+    }
+
+    public ResponseEntity<List<Transferencia>> getByPeriod(Timestamp dataInicio, Timestamp dataFim){
+        List<Transferencia> listTransferencias= transferenciaRepository.findAll();
+        List<Transferencia> transferenciasValidas = new ArrayList<>();
+
+        ValidaData validaData = new ValidaData();
+
+        for (Transferencia transferencia : listTransferencias ){
+            if (validaData.verificaPeriodo(dataInicio, dataFim, transferencia.getDataTransferencia())==true){
+                transferenciasValidas.add(transferencia);
+            }
+        }
+        return ResponseEntity.ok().body(transferenciasValidas);
+    }
+
+    public ResponseEntity<List<Transferencia>> getByOperador(){
+        return null;
     }
 
 }

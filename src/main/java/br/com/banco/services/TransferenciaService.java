@@ -31,22 +31,24 @@ public class TransferenciaService {
         return ResponseEntity.ok().body(transferenciaRepository.findAll());
     }
 
-    public ResponseEntity<List<Transferencia>> getByPeriod(Timestamp dataInicio, Timestamp dataFim){
+    public ResponseEntity<List<Transferencia>> getByPeriod(String dataInicio, String dataFim){
         List<Transferencia> listTransferencias= transferenciaRepository.findAll();
         List<Transferencia> transferenciasValidas = new ArrayList<>();
 
         ValidaData validaData = new ValidaData();
+        Timestamp timestampInicio = validaData.formataData(dataInicio);
+        Timestamp timestampFim = validaData.formataData(dataFim);
 
         for (Transferencia transferencia : listTransferencias ){
-            if (validaData.verificaPeriodo(dataInicio, dataFim, transferencia.getDataTransferencia())==true){
+            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia())==true){
                 transferenciasValidas.add(transferencia);
             }
         }
         return ResponseEntity.ok().body(transferenciasValidas);
     }
 
-    public ResponseEntity<List<Transferencia>> getByOperador(){
-        return null;
+    public ResponseEntity<List<Transferencia>> getByOperador(String nome){
+        return ResponseEntity.ok().body(transferenciaRepository.findByNomeOperadorTransacao(nome));
     }
 
 }

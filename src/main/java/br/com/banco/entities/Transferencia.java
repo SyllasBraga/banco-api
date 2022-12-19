@@ -1,6 +1,8 @@
 package br.com.banco.entities;
 
 import br.com.banco.enums.TipoTransferenciaEnums;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,11 +20,12 @@ public class Transferencia {
 
     private float valor;
 
-    private TipoTransferenciaEnums tipo;
+    private String tipo;
 
     private String nomeOperadorTransacao;
 
     @ManyToOne
     @JoinColumn(name = "conta_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Conta contaId;
 }

@@ -2,6 +2,7 @@ package br.com.banco;
 
 import br.com.banco.entities.Transferencia;
 import br.com.banco.repository.TransferenciaRepository;
+import br.com.banco.services.TransferenciaService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.domain.Example;

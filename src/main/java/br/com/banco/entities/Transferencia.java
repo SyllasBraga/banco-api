@@ -3,10 +3,7 @@ package br.com.banco.entities;
 import br.com.banco.enums.TipoTransferenciaEnums;
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Data
@@ -21,5 +18,11 @@ public class Transferencia {
 
     private float valor;
 
-    private TipoTransferenciaEnums tipoTransferenciaEnums;
+    private TipoTransferenciaEnums tipo;
+
+    private String nomeOperadorTransacao;
+
+    @ManyToOne
+    @JoinColumn(name = "conta_id")
+    private Conta contaId;
 }

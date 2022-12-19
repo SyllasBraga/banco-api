@@ -22,4 +22,8 @@ public class transferenciaController {
         return transferenciaService.getByNumberAccount(contaId);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Transferencia>> getAll(){
+        return transferenciaService.getAll();
+    }
 }

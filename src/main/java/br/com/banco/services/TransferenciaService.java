@@ -20,10 +20,12 @@ public class TransferenciaService {
     }
 
     public ResponseEntity<List<Transferencia>> getByNumberAccount(Long contaId){
-
         Conta conta = contaService.getById(contaId);
-
         return ResponseEntity.ok().body(transferenciaRepository.findByContaId(conta));
+    }
+
+    public ResponseEntity<List<Transferencia>> getAll(){
+        return ResponseEntity.ok().body(transferenciaRepository.findAll());
     }
 
 }

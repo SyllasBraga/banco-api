@@ -2,8 +2,8 @@ package br.com.banco.controllers;
 
 import br.com.banco.entities.Transferencia;
 import br.com.banco.services.TransferenciaService;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,48 +21,38 @@ public class transferenciaController {
 
     @GetMapping("/conta")
     public ResponseEntity<List<Transferencia>> getByContaId(@RequestParam(name = "contaId") Long contaId,
-                                                            @RequestParam(name = "page") int page,
-                                                            @RequestParam(name = "qtdItens") int qtdItens){
-        Pageable pageable = PageRequest.of(page, qtdItens);
+                                                            @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByNumberAccount(contaId, pageable);
+        return transferenciaService.getByNumberAccount(contaId, page);
     }
 
     @GetMapping
-    public ResponseEntity<List<Transferencia>> getAll(@RequestParam(name = "page") int page,
-                                                      @RequestParam(name = "qtdItens") int qtdItens){
-        Pageable pageable = PageRequest.of(page, qtdItens);
+    public HttpEntity<Page<Transferencia>> getAll(@RequestParam(name = "page") int page){
 
-        return transferenciaService.getAll(pageable);
+        return transferenciaService.getAll(page);
     }
 
     @GetMapping("/periodo")
     public ResponseEntity<List<Transferencia>> getByPeriod(@RequestParam(name = "dataInicio") String dataInicio,
                                                            @RequestParam(name = "dataFim") String dataFim,
-                                                           @RequestParam(name = "page") int page,
-                                                           @RequestParam(name = "qtdItens") int qtdItens){
-        Pageable pageable = PageRequest.of(page, qtdItens);
+                                                           @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriod(dataInicio, dataFim, pageable);
+        return transferenciaService.getByPeriod(dataInicio, dataFim, page);
     }
 
     @GetMapping("/operador")
     public ResponseEntity<List<Transferencia>> getByOperador(@RequestParam(name = "nome") String nome,
-                                                             @RequestParam(name = "page") int page,
-                                                             @RequestParam(name = "qtdItens") int qtdItens){
-        Pageable pageable = PageRequest.of(page, qtdItens);
+                                                             @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByOperador(nome, pageable);
+        return transferenciaService.getByOperador(nome, page);
     }
 
     @GetMapping("/operadorAndPeriodo")
     public ResponseEntity<List<Transferencia>> getByOperadorAndPeriodo (@RequestParam(name = "nome") String nome,
                                                                         @RequestParam(name = "dataInicio") String dataInicio,
                                                                         @RequestParam(name = "dataFim") String dataFim,
-                                                                        @RequestParam(name = "page") int page,
-                                                                        @RequestParam(name = "qtdItens") int qtdItens){
-        Pageable pageable = PageRequest.of(page, qtdItens);
+                                                                        @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriodoAndOperador(dataInicio, dataFim, nome, pageable);
+        return transferenciaService.getByPeriodoAndOperador(dataInicio, dataFim, nome, page);
     }
 }

@@ -20,7 +20,7 @@ public class ValidaData {
     }
 
     public Timestamp formataData(String data){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
             Timestamp dataFormatada = new Timestamp(dateFormat.parse(data).getTime());
             return dataFormatada;

@@ -37,48 +37,35 @@ public class TransferenciaService {
         return ResponseEntity.ok().body(transferenciaRepository.findAll(pageable));
     }
 
-    public ResponseEntity<Page<Transferencia>> getByPeriod(String dataInicio, String dataFim, int page){
+    public ResponseEntity<Page<Transferencia>> getByPeriod(Long contaId, String dataInicio, String dataFim, int page){
         Pageable pageable = PageRequest.of(page, 4);
-
-        Page<Transferencia> listTransferencias= transferenciaRepository.findAll(pageable);
-        List<Transferencia> transferenciasValidas = new ArrayList<>();
+        Conta conta = contaService.getById(contaId);
 
         ValidaData validaData = new ValidaData();
         Timestamp timestampInicio = validaData.formataData(dataInicio);
         Timestamp timestampFim = validaData.formataData(dataFim);
 
-        for (Transferencia transferencia : listTransferencias ){
-            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia()))
-                transferenciasValidas.add(transferencia);
-        }
-
-        Page<Transferencia> listTrasferenciasValidas = new PageImpl<>(transferenciasValidas);
-        return ResponseEntity.ok().body(listTrasferenciasValidas);
+        return ResponseEntity.ok().body(transferenciaRepository.findByContaIdAndDataTransferenciaBetween(conta, timestampInicio, timestampFim, pageable));
     }
 
-    public ResponseEntity<Page<Transferencia>> getByOperador(String nome, int page){
+    public ResponseEntity<Page<Transferencia>> getByOperador(Long contaId, String nome, int page){
         Pageable pageable = PageRequest.of(page, 4);
-        return ResponseEntity.ok().body(transferenciaRepository.findByNomeOperadorTransacao(nome, pageable));
+        Conta conta = contaService.getById(contaId);
+
+        return ResponseEntity.ok().body(transferenciaRepository.findByContaIdAndNomeOperadorTransacao(conta, nome, pageable));
     }
 
-    public ResponseEntity<Page<Transferencia>> getByPeriodoAndOperador(String dataInicio, String dataFim, String nome,
+    public ResponseEntity<Page<Transferencia>> getByPeriodoAndOperador(Long contaId, String dataInicio, String dataFim, String nome,
                                                                        int page){
         Pageable pageable = PageRequest.of(page, 4);
-
-        Page<Transferencia> listTransferencias= transferenciaRepository.findByNomeOperadorTransacao(nome, pageable);
-        List<Transferencia> transferenciasValidas = new ArrayList<>();
+        Conta conta = contaService.getById(contaId);
 
         ValidaData validaData = new ValidaData();
         Timestamp timestampInicio = validaData.formataData(dataInicio);
         Timestamp timestampFim = validaData.formataData(dataFim);
 
-        for (Transferencia transferencia : listTransferencias ){
-            if (validaData.verificaPeriodo(timestampInicio, timestampFim, transferencia.getDataTransferencia())){
-                transferenciasValidas.add(transferencia);
-            }
-        }
-
-        Page<Transferencia> listTrasferenciasValidas = new PageImpl<>(transferenciasValidas);
-        return ResponseEntity.ok().body(listTrasferenciasValidas);
+        return ResponseEntity.ok().body(transferenciaRepository.
+                findByContaIdAndNomeOperadorTransacaoAndDataTransferenciaBetween(conta, nome, timestampInicio,
+                        timestampFim, pageable));
     }
 }

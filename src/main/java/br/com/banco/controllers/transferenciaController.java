@@ -33,26 +33,29 @@ public class transferenciaController {
     }
 
     @GetMapping("/periodo")
-    public ResponseEntity<Page<Transferencia>> getByPeriod(@RequestParam(name = "dataInicio") String dataInicio,
+    public ResponseEntity<Page<Transferencia>> getByPeriod(@RequestParam(name = "contaId") Long contaId,
+                                                           @RequestParam(name = "dataInicio") String dataInicio,
                                                            @RequestParam(name = "dataFim") String dataFim,
                                                            @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriod(dataInicio, dataFim, page);
+        return transferenciaService.getByPeriod(contaId, dataInicio, dataFim, page);
     }
 
     @GetMapping("/operador")
-    public ResponseEntity<Page<Transferencia>> getByOperador(@RequestParam(name = "nome") String nome,
+    public ResponseEntity<Page<Transferencia>> getByOperador(@RequestParam(name = "contaId") Long contaId,
+                                                             @RequestParam(name = "nome") String nome,
                                                              @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByOperador(nome, page);
+        return transferenciaService.getByOperador(contaId, nome, page);
     }
 
     @GetMapping("/operadorAndPeriodo")
-    public ResponseEntity<Page<Transferencia>> getByOperadorAndPeriodo (@RequestParam(name = "nome") String nome,
+    public ResponseEntity<Page<Transferencia>> getByOperadorAndPeriodo (@RequestParam(name = "contaId") Long contaId,
+                                                                        @RequestParam(name = "nome") String nome,
                                                                         @RequestParam(name = "dataInicio") String dataInicio,
                                                                         @RequestParam(name = "dataFim") String dataFim,
                                                                         @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriodoAndOperador(dataInicio, dataFim, nome, page);
+        return transferenciaService.getByPeriodoAndOperador(contaId, dataInicio, dataFim, nome, page);
     }
 }

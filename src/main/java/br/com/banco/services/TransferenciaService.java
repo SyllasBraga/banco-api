@@ -5,15 +5,12 @@ import br.com.banco.entities.Transferencia;
 import br.com.banco.repository.TransferenciaRepository;
 import br.com.banco.services.utils.ValidaData;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class TransferenciaService {

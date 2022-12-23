@@ -2,10 +2,7 @@ package br.com.banco.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,4 +13,9 @@ public class Conta {
     private Long idConta;
 
     private String nomeResponsavel;
+
+    @Transient
+    private float saldoTotal;
+    @Transient
+    private float saldoPeriodo;
 }

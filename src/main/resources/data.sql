@@ -1,10 +1,8 @@
 CREATE TABLE conta
 (
     id_conta IDENTITY NOT NULL PRIMARY KEY,
-    nome_responsavel VARCHAR(50) NOT NULL,
-    saldo_total numeric(20,2)
+    nome_responsavel VARCHAR(50) NOT NULL
 );
-
 
 CREATE TABLE transferencia
 (
@@ -19,7 +17,6 @@ CREATE TABLE transferencia
         FOREIGN KEY (conta_id)
         REFERENCES conta(id_conta)
 );
-
 
 INSERT INTO conta (id_conta, nome_responsavel) VALUES (1,'Fulano');
 INSERT INTO conta (id_conta, nome_responsavel) VALUES (2,'Sicrano');

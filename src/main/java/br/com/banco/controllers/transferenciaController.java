@@ -24,12 +24,6 @@ public class transferenciaController {
         return transferenciaService.getByNumberAccount(contaId, page);
     }
 
-    @GetMapping
-    public HttpEntity<Page<Transferencia>> getAll(@RequestParam(name = "page") int page){
-
-        return transferenciaService.getAll(page);
-    }
-
     @GetMapping("/periodo")
     public ResponseEntity<Page<Transferencia>> getByPeriod(@RequestParam(name = "contaId") Long contaId,
                                                            @RequestParam(name = "dataInicio") String dataInicio,

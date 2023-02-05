@@ -8,7 +8,6 @@ import br.com.banco.services.utils.ValidaData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -26,16 +25,16 @@ public class TransferenciaService {
         this.calculaSaldo = calculaSaldo;
     }
 
-    public ResponseEntity<Page<Transferencia>> getByNumberAccount(Long contaId, int page){
+    public Page<Transferencia> getByNumberAccount(Long contaId, int page){
         Conta conta = contaService.getById(contaId);
         Pageable pageable = PageRequest.of(page, 4);
 
         conta.setSaldoTotal(calculaSaldo.calculaSaldoConta(conta));
 
-        return ResponseEntity.ok().body(transferenciaRepository.findByContaId(conta, pageable));
+        return transferenciaRepository.findByContaId(conta, pageable);
     }
 
-    public ResponseEntity<Page<Transferencia>> getByPeriod(Long contaId, String dataInicio, String dataFim, int page){
+    public Page<Transferencia> getByPeriod(Long contaId, String dataInicio, String dataFim, int page){
         Pageable pageable = PageRequest.of(page, 4);
         Conta conta = contaService.getById(contaId);
 
@@ -46,19 +45,20 @@ public class TransferenciaService {
         conta.setSaldoTotal(calculaSaldo.calculaSaldoConta(conta));
         conta.setSaldoPeriodo(calculaSaldo.calculaSaldoPeriodo(conta, timestampFim));
 
-        return ResponseEntity.ok().body(transferenciaRepository.findByContaIdAndDataTransferenciaBetween(conta, timestampInicio, timestampFim, pageable));
+        return transferenciaRepository.findByContaIdAndDataTransferenciaBetween(conta,
+                timestampInicio, timestampFim, pageable);
     }
 
-    public ResponseEntity<Page<Transferencia>> getByOperador(Long contaId, String nome, int page){
+    public Page<Transferencia> getByOperador(Long contaId, String nome, int page){
         Pageable pageable = PageRequest.of(page, 4);
         Conta conta = contaService.getById(contaId);
 
         conta.setSaldoTotal(calculaSaldo.calculaSaldoConta(conta));
 
-        return ResponseEntity.ok().body(transferenciaRepository.findByContaIdAndNomeOperadorTransacao(conta, nome, pageable));
+        return transferenciaRepository.findByContaIdAndNomeOperadorTransacao(conta, nome, pageable);
     }
 
-    public ResponseEntity<Page<Transferencia>> getByPeriodoAndOperador(Long contaId, String dataInicio, String dataFim, String nome,
+    public Page<Transferencia> getByPeriodoAndOperador(Long contaId, String dataInicio, String dataFim, String nome,
                                                                        int page){
         Pageable pageable = PageRequest.of(page, 4);
         Conta conta = contaService.getById(contaId);
@@ -70,8 +70,8 @@ public class TransferenciaService {
         conta.setSaldoTotal(calculaSaldo.calculaSaldoConta(conta));
         conta.setSaldoPeriodo(calculaSaldo.calculaSaldoPeriodo(conta, timestampFim));
 
-        return ResponseEntity.ok().body(transferenciaRepository.
+        return transferenciaRepository.
                 findByContaIdAndNomeOperadorTransacaoAndDataTransferenciaBetween(conta, nome, timestampInicio,
-                        timestampFim, pageable));
+                        timestampFim, pageable);
     }
 }

@@ -21,6 +21,6 @@ public class ContaController {
 
     @GetMapping
     public ResponseEntity<List<Conta>> getAll(){
-        return contaService.getAll();
+        return ResponseEntity.ok(contaService.getAll());
     }
 }

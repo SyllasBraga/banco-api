@@ -20,8 +20,8 @@ public class ContaService {
         return contaRepository.getById(id);
     }
 
-    public ResponseEntity<List<Conta>> getAll(){
-        return ResponseEntity.ok().body(contaRepository.findAll());
+    public List<Conta> getAll(){
+        return contaRepository.findAll();
     }
 
 }

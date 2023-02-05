@@ -21,7 +21,7 @@ public class transferenciaController {
     public ResponseEntity<Page<Transferencia>> getByContaId(@RequestParam(name = "contaId") Long contaId,
                                                             @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByNumberAccount(contaId, page);
+        return ResponseEntity.ok(transferenciaService.getByNumberAccount(contaId, page));
     }
 
     @GetMapping("/periodo")
@@ -30,7 +30,7 @@ public class transferenciaController {
                                                            @RequestParam(name = "dataFim") String dataFim,
                                                            @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriod(contaId, dataInicio, dataFim, page);
+        return ResponseEntity.ok(transferenciaService.getByPeriod(contaId, dataInicio, dataFim, page));
     }
 
     @GetMapping("/operador")
@@ -38,7 +38,7 @@ public class transferenciaController {
                                                              @RequestParam(name = "nome") String nome,
                                                              @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByOperador(contaId, nome, page);
+        return ResponseEntity.ok(transferenciaService.getByOperador(contaId, nome, page));
     }
 
     @GetMapping("/operadorAndPeriodo")
@@ -48,6 +48,6 @@ public class transferenciaController {
                                                                         @RequestParam(name = "dataFim") String dataFim,
                                                                         @RequestParam(name = "page") int page){
 
-        return transferenciaService.getByPeriodoAndOperador(contaId, dataInicio, dataFim, nome, page);
+        return ResponseEntity.ok(transferenciaService.getByPeriodoAndOperador(contaId, dataInicio, dataFim, nome, page));
     }
 }

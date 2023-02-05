@@ -29,6 +29,3 @@ INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_tra
 INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_transacao, conta_id) VALUES (6,'2021-04-01 12:12:04+03',25173.09,'TRANSFERENCIA', 'Ronnyscley',2);
 INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_transacao, conta_id) VALUES (7,'2019-04-01 12:12:04+03',25173.09,'TRANSFERENCIA', 'Ronnyscley',2);
 INSERT INTO transferencia (id,data_transferencia, valor, tipo, nome_operador_transacao, conta_id) VALUES (8,'2022-04-01 12:12:04+03',25173.09,'TRANSFERENCIA', 'Ronnyscley',2);
-
-
-
